@@ -1,11 +1,11 @@
-package tink
+package main
 
 import (
 	"flag"
+	"github.com/itsabgr/tink/pkg/service"
+	"github.com/itsabgr/tink/pkg/storage"
 	"log"
 	"net"
-	"tink/pkg/service"
-	"tink/pkg/storage"
 )
 
 var flagAddr = flag.String("addr", "localhost:8080", "server address")
@@ -22,6 +22,7 @@ func main() {
 		log.Fatalln(err)
 	}
 	defer ln.Close()
+	log.Println("listen", ln.Addr())
 	err = service.Serve(st, ln)
 	if err != nil {
 		log.Fatalln(err)

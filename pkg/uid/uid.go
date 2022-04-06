@@ -11,7 +11,7 @@ type UID int64
 var start = time.Now().UnixNano()
 
 func (uid UID) String() string {
-	return strconv.FormatInt(int64(uid), 32)
+	return strconv.FormatInt(int64(uid), 36)
 }
 
 func Gen() UID {

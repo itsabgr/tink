@@ -1,19 +1,19 @@
 package service
 
 import (
+	"github.com/itsabgr/tink/pkg/storage"
+	"github.com/itsabgr/tink/pkg/uid"
+	"github.com/itsabgr/tink/pkg/validator"
 	"github.com/valyala/fasthttp"
 	"net"
 	"time"
-	"tink/pkg/storage"
-	"tink/pkg/uid"
-	"tink/pkg/validator"
 )
 
 func Serve(st storage.Storage, listener net.Listener) error {
 	server := &fasthttp.Server{}
 	server.Handler = func(ctx *fasthttp.RequestCtx) {
 		if ctx.IsGet() {
-			dest, err := st.GetByKey(ctx.Path())
+			dest, err := st.GetByKey(ctx.Path()[1:])
 			if err != nil {
 				ctx.Error(err.Error(), fasthttp.StatusNotFound)
 				return
@@ -28,7 +28,7 @@ func Serve(st storage.Storage, listener net.Listener) error {
 			server.ErrorHandler(ctx, err)
 			return
 		}
-		name := ctx.Path()[0:]
+		name := ctx.Path()[1:]
 		if len(name) == 0 {
 			name = []byte(uid.Gen().String())
 		}

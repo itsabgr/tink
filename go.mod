@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/dgraph-io/badger/v3 v3.2103.2
-	github.com/itsabgr/go-handy v0.0.0-20220317120815-985cf1187f8f
 	github.com/valyala/fasthttp v1.35.0
 )
 
